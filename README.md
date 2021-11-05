@@ -30,7 +30,7 @@ Oooooor, simply watch the gif :smiley::
 A sample .gz file was provided containing a simple file with three outputs, so you can test this script.
 
 ## Other info:
-I'm developing this project to improve my Python. It was my first time parsing a big file and also working with gz compressed files, I am sure this can be improved a LOT if you have Python skills, feel free to improve upon this source code.
+I'm developing this project to improve my Python skills. It was my first time parsing a big file and also working with gz compressed files, I am sure this can be improved a LOT if you have Python skills, feel free to improve upon this source code.
 
 Special thanks to Willians Crisanto @willoR2 who approached me with the need to have a script to improve his work routine.
 
