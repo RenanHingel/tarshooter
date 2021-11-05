@@ -20,3 +20,4 @@ git clone https://github.com/RenanHingel/tarshooter.git
 The script was written with default Python modules, no extra modules are required!
 
 ## Usage:
+![Guide](https://github.com/RenanHingel/tarshooter/blob/958c67ad5db7537ff49d3f03ab0387143f625f4a/documentation/guide.gif)
