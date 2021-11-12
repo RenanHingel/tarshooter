@@ -1,3 +1,5 @@
+[![published](https://static.production.devnetcloud.com/codeexchange/assets/images/devnet-published.svg)](https://developer.cisco.com/codeexchange/github/repo/RenanHingel/tarshooter)
+
 # Tar Shooter
 Tar Shooter is a Python script to help you by uncompressing ".tar.gz" files and parsing Cisco outputs inside the tar file.
 
