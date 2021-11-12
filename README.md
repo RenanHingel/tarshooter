@@ -36,5 +36,3 @@ Special thanks to Willians Crisanto @willoR2 who approached me with the need to 
 
 ## License
 This source code is provided under MIT License, for details see [LICENSE](./LICENSE)
-
-The web template design was provided by DashboardPack (https://dashboardpack.com). I did some minor adjustments to adapt their template to what I needed for this project.
