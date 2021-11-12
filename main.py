@@ -2,12 +2,15 @@ import tarfile
 import os
 import sys
 import re
+import sys
+import cchardet as chardet
+from pathlib import Path
 
 # Script details - feel free to contact!
 author_name = "Renan Hingel"
 author_contact = "renanhingel@gmail.com"
 git_url = "https://github.com/RenanHingel/tarshooter"
-script_version = "1.0.4"
+script_version = "1.0.5"
 
 # ANSI color codes
 BLUE = "\033[0;34m"
@@ -51,11 +54,15 @@ def tshoot(workdir):
     clean = "******** "
     clean2 = " *******"
 
-    # Open the file supplied by the user
-    with open(workdir, "r") as raw_text:
+    # Open the file supplied by the user and detect it's encoding type
+    filepath = Path(workdir)
+    undetected_file = filepath.read_bytes()
+    detect_file = chardet.detect(undetected_file)
+
+    with open(workdir, "r", encoding=detect_file["encoding"]) as raw_text:
         read_text = raw_text.readlines()
 
-        # Now, enumerate all lines inside the file and remove the \n characters with strip
+    # Now, enumerate all lines inside the file and remove the \n characters with strip
     for index, line in enumerate(read_text):
         line_count = index + 1
         last_line = index + 1
@@ -69,7 +76,7 @@ def tshoot(workdir):
     while True:
         # Troubleshoot mode menu
         command = input("Enter a " + LIGHT_CYAN + "[specific command]" + CEND + ", " + LIGHT_CYAN + "[all]"
-                        + CEND + "to see all available commands or " + LIGHT_CYAN + "[1]"
+                        + CEND + " to see all available commands or " + LIGHT_CYAN + "[1]"
                         + CEND + " to quit to main menu: ")
         # Option 1 - exit
         if command == "1":
