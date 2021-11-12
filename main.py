@@ -1,12 +1,13 @@
 import tarfile
 import os
 import sys
+import re
 
 # Script details - feel free to contact!
 author_name = "Renan Hingel"
 author_contact = "renanhingel@gmail.com"
 git_url = "https://github.com/RenanHingel/tarshooter"
-script_version = "1.0.3"
+script_version = "1.0.4"
 
 # ANSI color codes
 BLUE = "\033[0;34m"
@@ -66,32 +67,38 @@ def tshoot(workdir):
             commands_dict[strip_line] = line_count
 
     while True:
+        # Troubleshoot mode menu
         command = input("Enter a " + LIGHT_CYAN + "[specific command]" + CEND + ", " + LIGHT_CYAN + "[all]"
                         + CEND + "to see all available commands or " + LIGHT_CYAN + "[1]"
                         + CEND + " to quit to main menu: ")
-
+        # Option 1 - exit
         if command == "1":
             break
-
+        # Option all - will list all commands found inside the provided file
         if command == "all":
             print('Available commands: ' + LIGHT_CYAN + ', '.join(
                 str(key) for key, value in commands_dict.items()) + CEND)
+            # After listing all commands, ask the user to provide a desired command
             command = input("Enter a " + LIGHT_CYAN + "[specific command]" + CEND + ": ")
         try:
+            # Now try to find the mentioned command position to understand what are the important lines to print the output of the command
             current_line = commands_dict[command]
 
+            # Next we will identify the line position of the next command
             next_key = None
             dict_iter = iter(commands_dict)
             for key in dict_iter:
                 if key == command:
                     next_key = next(dict_iter, None)
-
+            
+            # After finding the line position, we'll subtract one line, this line is exactly the next command line and we just want the output
             try:
                 next_line = (commands_dict[next_key] - 1)
-
+            # If the user is searching for the last command, we cannot expect to identify the important lines by finding the next command line
             except:
                 next_line = last_line
 
+            # Now that we have the important lines, we'll determine the range and print the output of the selected command
             output_interval = range(current_line, next_line)
             lines_to_read = list(output_interval)
             print("------------------------------------------------------------------------")
@@ -101,7 +108,11 @@ def tshoot(workdir):
                     print(line.strip())
             print("------------------------------------------------------------------------")
         except:
-            print(f'Command "{command}" not found.')
+            # If the user provided an invalid command, inform it was not found and print similar commands by using a regex search
+            print(LIGHT_RED + "Command not found!" + CEND)
+
+            print('Similar commands: ' + LIGHT_CYAN + ', '.join(
+                str(key) for key, value in commands_dict.items() if re.match(r"" + re.escape(command) + ".*", key)) + CEND)
 
 
 if __name__ == '__main__':
@@ -147,7 +158,7 @@ if __name__ == '__main__':
                 os._exit(1)
 
     except KeyboardInterrupt:
-        print(LIGHT_RED + "Break sequence CTRL + C detected. Script will exit." + CEND)
+        print(LIGHT_RED + "\nBreak sequence CTRL + C detected. Script will exit." + CEND)
         try:
             sys.exit(0)
         except SystemExit:
