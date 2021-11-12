@@ -17,6 +17,10 @@ Tar Shooter is a Python script to help you by uncompressing ".tar.gz" files and 
 ```console
 git clone https://github.com/RenanHingel/tarshooter.git
 ```
+#### Install required modules
+```
+pip install -r requirements.txt
+```
 
 ### Python
 The script was written with default Python modules, no extra modules are required!
